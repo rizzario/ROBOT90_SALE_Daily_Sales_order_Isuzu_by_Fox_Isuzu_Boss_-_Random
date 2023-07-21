@@ -1,0 +1,288 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SendEmailOutlook" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>939,2391</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>SendEmailOutlook_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="44">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="54">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Send Email Outlook" sap:VirtualizedContainerService.HintSize="949,2326" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="mailSubject" />
+      <Variable x:TypeArguments="x:String" Name="mailTo" />
+      <Variable x:TypeArguments="x:String" Name="mailCC" />
+      <Variable x:TypeArguments="x:String" Name="mailBody" />
+      <Variable x:TypeArguments="s:String[]" Name="maiAttachment" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <If Condition="[Directory.GetFiles(in_Config(&quot;ExScreenshotsFolderPath&quot;).ToString,&quot;*.png&quot;).Length &gt; 0]" DisplayName="If have error image" sap:VirtualizedContainerService.HintSize="907,1975" sap2010:WorkflowViewState.IdRef="If_10">
+      <If.Then>
+        <Sequence DisplayName="Send mail error" sap:VirtualizedContainerService.HintSize="376,1059" sap2010:WorkflowViewState.IdRef="Sequence_36">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="Set Subject" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_102">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailSubject]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Fail_Subject").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Warning in subject" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_103">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailSubject]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[mailSubject.Replace("[Status]","Warning")]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailTo" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_104">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailTo]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Fail_To").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailCC" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_105">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailCC]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Fail_CC").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailBody" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_106">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailBody]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Fail_Body_Data").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="replace mailBody" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_107">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailBody]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[mailBody.Replace("[Robot-Head]","Warning").Replace("[Process]","Having issue on robot process").Replace("[BusinessMessage]","Sales order error detect please see attach file")]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailAttachment" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_114">
+            <Assign.To>
+              <OutArgument x:TypeArguments="s:String[]">[maiAttachment]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(in_Config("ExScreenshotsFolderPath").ToString,"*.png")]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" AttachmentsCollection="[maiAttachment]" Body="[mailBody]" Cc="[mailCC]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="334,147" sap2010:WorkflowViewState.IdRef="SendOutlookMail_3" IsBodyHtml="True" IsDraft="False" Subject="[mailSubject]" To="[mailTo]">
+            <ui:SendOutlookMail.Files>
+              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                <InArgument x:TypeArguments="x:String">[in_Config("file_error").ToString]</InArgument>
+              </scg:List>
+            </ui:SendOutlookMail.Files>
+          </ui:SendOutlookMail>
+          <ui:Delete ContinueOnError="{x:Null}" sap:VirtualizedContainerService.HintSize="334,80" sap2010:WorkflowViewState.IdRef="Delete_4" Path="[in_Config(&quot;file_error&quot;).ToString]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Send mail success" sap:VirtualizedContainerService.HintSize="486,1815" sap2010:WorkflowViewState.IdRef="Sequence_38">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="Set Subject" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_108">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailSubject]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Success_Subject").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Warning in subject" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_109">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailSubject]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[mailSubject.Replace("[file]",in_Config("file_process").ToString)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailTo" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_110">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailTo]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Success_To").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailCC" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_111">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailCC]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Success_CC").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Set mailBody" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_112">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailBody]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[in_Config("Email_Success_Body_Data").ToString]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="replace mailBody" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_113">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[mailBody]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[mailBody.Replace("[Robot-Head]","Success").Replace("[Process]","Release Sales Order Isuzu from file : " + Path.GetFileNameWithoutExtension(in_Config("file_process").ToString)).Replace("[Attach]","Please see attach file")]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <uascw:CompressFiles CompressedFileInfo="{x:Null}" Password="{x:Null}" CodePage="Default" CompressedFileName="[Path.GetFileNameWithoutExtension(in_Config(&quot;file_process&quot;).ToString) + &quot;.zip&quot;]" CompressionLevel="Normal" DisplayName="Compress/Zip Files" sap:VirtualizedContainerService.HintSize="444,244" sap2010:WorkflowViewState.IdRef="CompressFiles_1" OverrideExistingFile="True">
+            <uascw:CompressFiles.ContentToArchive>
+              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                <InArgument x:TypeArguments="x:String">[in_Config("output_path").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String">[in_Config("cim_process_path").ToString]</InArgument>
+              </scg:List>
+            </uascw:CompressFiles.ContentToArchive>
+          </uascw:CompressFiles>
+          <Assign DisplayName="Set mailAttachment" sap:VirtualizedContainerService.HintSize="444,60" sap2010:WorkflowViewState.IdRef="Assign_116">
+            <Assign.To>
+              <OutArgument x:TypeArguments="s:String[]">[maiAttachment]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(in_Config("report_path").ToString,"*.prn").Concat(Directory.GetFiles(in_Config("txt_input_Path").ToString,Path.GetFileName(in_Config("csv_raw").ToString))).ToArray]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <TryCatch DisplayName="Try Catch : Handle Email" sap:VirtualizedContainerService.HintSize="444,379" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <TryCatch.Try>
+              <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" AttachmentsCollection="[maiAttachment]" Body="[mailBody]" Cc="[mailCC]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="334,147" sap2010:WorkflowViewState.IdRef="SendOutlookMail_4" IsBodyHtml="True" IsDraft="False" Subject="[mailSubject]" To="[mailTo]">
+                <ui:SendOutlookMail.Files>
+                  <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                    <InArgument x:TypeArguments="x:String">[in_Config("file_process").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String">[in_Config("Sales Order").ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:String">[Path.GetFileNameWithoutExtension(in_Config("file_process").ToString) + ".zip"]</InArgument>
+                  </scg:List>
+                </ui:SendOutlookMail.Files>
+              </ui:SendOutlookMail>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Process handle alert" sap:VirtualizedContainerService.HintSize="376,247" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Send email process got some issue...&quot;]" />
+                    <Throw Exception="[new Exception(&quot;Mail have some issue on process contact application...&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+          <ui:Delete ContinueOnError="True" sap:VirtualizedContainerService.HintSize="444,80" sap2010:WorkflowViewState.IdRef="Delete_2" Path="[in_Config(&quot;file_process&quot;).ToString]" />
+          <ui:Delete ContinueOnError="True" sap:VirtualizedContainerService.HintSize="444,80" sap2010:WorkflowViewState.IdRef="Delete_5" Path="[Path.GetFileNameWithoutExtension(in_Config(&quot;file_process&quot;).ToString) + &quot;.zip&quot;]" />
+          <ui:Delete ContinueOnError="True" sap:VirtualizedContainerService.HintSize="444,80" sap2010:WorkflowViewState.IdRef="Delete_6" Path="[in_Config(&quot;csv_raw&quot;).ToString]" />
+        </Sequence>
+      </If.Else>
+    </If>
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="907,219" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[Directory.GetFiles(in_Config(&quot;cim_process_path&quot;).ToString, &quot;*.cim&quot;).&#xA;Concat(Directory.GetFiles(in_Config(&quot;ExScreenshotsFolderPath&quot;).ToString,&quot;*.png&quot;)).&#xA;Concat(Directory.GetFiles(in_Config(&quot;output_path&quot;).ToString, &quot;*.csv&quot;)).&#xA;Concat(Directory.GetFiles(in_Config(&quot;report_path&quot;).ToString,&quot;*.prn&quot;)).ToArray]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="file" />
+          </ActivityAction.Argument>
+          <ui:Delete ContinueOnError="{x:Null}" sap:VirtualizedContainerService.HintSize="284,80" sap2010:WorkflowViewState.IdRef="Delete_1" Path="[file]" />
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+  </Sequence>
+</Activity>
